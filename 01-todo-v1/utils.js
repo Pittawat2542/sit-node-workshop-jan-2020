@@ -1,5 +1,7 @@
 const fs = require('fs');
 
+const chalk = require('chalk');
+
 const addNewTodo = (title, body) => {
     const todos = getAllTodos();
     const newTodo = {
@@ -10,7 +12,7 @@ const addNewTodo = (title, body) => {
     };
     todos.push(newTodo);
     updateAllTodos(todos);
-    console.log(`Added todo with id: ${newTodo.id}`);
+    console.log(`${chalk.inverse.green('Added')} todo with id: ${newTodo.id}`);
 };
 
 const listAllTodos = () => {
@@ -20,7 +22,7 @@ const listAllTodos = () => {
 
     todos.forEach((todo, index) =>
         console.log(
-            `${index + 1}. ${todo.title} [${
+            `${index + 1}. ${chalk.bold(todo.title)} [${
                 todo.isDone ? '/' : 'X'
             }]\nDescription: ${todo.body}\n===`
         )
@@ -31,9 +33,9 @@ const readTodo = todoId => {
     const todos = getAllTodos();
     const todo = todos.find(todo => todo.id === todoId);
     console.log(
-        `${todo.title} [${
-            todo.isDone ? '/' : 'X'
-        }]\nDescription: ${todo.body}\n===`
+        `${chalk.bold(todo.title)} [${todo.isDone ? '/' : 'X'}]\nDescription: ${
+            todo.body
+        }\n===`
     );
 };
 
@@ -41,7 +43,7 @@ const deleteTodo = todoId => {
     const todos = getAllTodos();
     const newTodos = todos.filter(todo => todo.id !== todoId);
     updateAllTodos(newTodos);
-    console.log(`Deleted todo with id: ${todoId}`);
+    console.log(`${chalk.inverse.red('Deleted')} todo with id: ${todoId}`);
 };
 
 const getAllTodos = () => JSON.parse(fs.readFileSync('todo.json'));
