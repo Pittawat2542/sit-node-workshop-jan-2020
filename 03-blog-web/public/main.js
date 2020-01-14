@@ -75,6 +75,7 @@ function createBlogPost(id, title, body) {
 }
 
 document.addEventListener('DOMContentLoaded', async function() {
+    try {
     const response = await fetch('http://localhost:3000/api/posts');
     const data = await response.json();
     const { posts } = await data;
@@ -84,5 +85,8 @@ document.addEventListener('DOMContentLoaded', async function() {
             'No Posts found.';
     } else {
         document.querySelector('#loading-message').remove();
+    }
+    } catch (err) {
+        console.log(err);
     }
 });
