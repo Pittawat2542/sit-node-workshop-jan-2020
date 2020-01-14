@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         submitButton.innerHTML =
             '<div class="spinner-border text-light" role="status"><span class="sr-only">Loading...</span></div>';
         submitButton.disabled = true;
+        try {
         const response = await fetch(
             isEditMode
                 ? 'http://localhost:3000/api/posts/' + url[url.length - 2]
@@ -60,5 +61,8 @@ document.addEventListener('DOMContentLoaded', async function() {
             text: 'ID: ' + post.id
         });
         window.location.replace('http://localhost:3000');
+        } catch (err) {
+            console.log(err);
+        }
     });
 });
